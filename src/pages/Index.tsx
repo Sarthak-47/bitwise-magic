@@ -51,6 +51,7 @@ const algorithms: AlgorithmInfo[] = [
 
 const Index = () => {
   const [selectedAlgorithm, setSelectedAlgorithm] = useState<AlgorithmType>('restoring-division');
+  const [bitSize, setBitSize] = useState(8);
   const [simulation, setSimulation] = useState<SimulationState>({
     steps: [],
     currentStep: 0,
@@ -58,50 +59,48 @@ const Index = () => {
     speed: 1
   });
   const [playbackInterval, setPlaybackInterval] = useState<NodeJS.Timeout | null>(null);
+  const [canAdvance, setCanAdvance] = useState(false);
 
   const isDivisionAlgorithm = selectedAlgorithm.includes('division');
   const currentAlgo = algorithms.find(a => a.id === selectedAlgorithm)!;
 
   useEffect(() => {
-    if (simulation.isPlaying && simulation.currentStep < simulation.steps.length) {
-      const interval = setInterval(() => {
+    if (simulation.isPlaying && canAdvance && simulation.currentStep < simulation.steps.length - 1) {
+      setCanAdvance(false);
+      setTimeout(() => {
         setSimulation(prev => {
           if (prev.currentStep >= prev.steps.length - 1) {
-            clearInterval(interval);
             return { ...prev, isPlaying: false };
           }
           return { ...prev, currentStep: prev.currentStep + 1 };
         });
-      }, 1000 / simulation.speed);
-
-      setPlaybackInterval(interval);
-
-      return () => clearInterval(interval);
-    } else if (playbackInterval) {
-      clearInterval(playbackInterval);
-      setPlaybackInterval(null);
+      }, 500); // Small delay after typing completes before advancing
     }
-  }, [simulation.isPlaying, simulation.speed, simulation.currentStep, simulation.steps.length]);
+  }, [simulation.isPlaying, canAdvance, simulation.currentStep, simulation.steps.length]);
 
-  const runAlgorithm = (operand1: number, operand2: number) => {
+  const handleTypingComplete = () => {
+    setCanAdvance(true);
+  };
+
+  const runAlgorithm = (operand1: number, operand2: number, bits: number) => {
     try {
       let steps: Step[] = [];
 
       switch (selectedAlgorithm) {
         case 'restoring-division':
-          steps = restoringDivision(operand1, operand2);
+          steps = restoringDivision(operand1, operand2, bits);
           break;
         case 'non-restoring-division':
-          steps = nonRestoringDivision(operand1, operand2);
+          steps = nonRestoringDivision(operand1, operand2, bits);
           break;
         case 'shift-add-multiplication':
-          steps = shiftAddMultiplication(operand1, operand2);
+          steps = shiftAddMultiplication(operand1, operand2, bits);
           break;
         case 'booth-multiplication':
-          steps = boothMultiplication(operand1, operand2);
+          steps = boothMultiplication(operand1, operand2, bits);
           break;
         case 'fast-booth-multiplication':
-          steps = fastBoothMultiplication(operand1, operand2);
+          steps = fastBoothMultiplication(operand1, operand2, bits);
           break;
       }
 
@@ -148,6 +147,7 @@ const Index = () => {
   };
 
   const handlePlay = () => {
+    setCanAdvance(false);
     setSimulation(prev => ({ ...prev, isPlaying: true }));
   };
 
@@ -156,6 +156,7 @@ const Index = () => {
   };
 
   const handleStepForward = () => {
+    setCanAdvance(false);
     setSimulation(prev => ({
       ...prev,
       currentStep: Math.min(prev.currentStep + 1, prev.steps.length - 1)
@@ -207,6 +208,8 @@ const Index = () => {
               onReset={handleReset}
               inputLabels={currentAlgo.inputLabels}
               isDivision={isDivisionAlgorithm}
+              bitSize={bitSize}
+              onBitSizeChange={setBitSize}
             />
             <ControlPanel
               isPlaying={simulation.isPlaying}
@@ -221,7 +224,6 @@ const Index = () => {
               onSpeedChange={handleSpeedChange}
               disabled={simulation.steps.length === 0}
             />
-            <OutputPanel result={simulation.result} />
           </div>
 
           {/* Right Column - Visualization */}
@@ -236,7 +238,9 @@ const Index = () => {
                 <TypewriterNarration
                   text={currentStep.description}
                   speed={simulation.speed}
+                  onComplete={handleTypingComplete}
                 />
+                <OutputPanel result={simulation.result} />
               </>
             ) : (
               <Card className="p-12 border-border bg-card text-center">

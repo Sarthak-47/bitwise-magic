@@ -5,9 +5,10 @@ import Typed from 'typed.js';
 interface TypewriterNarrationProps {
   text: string;
   speed?: number;
+  onComplete?: () => void;
 }
 
-const TypewriterNarration = ({ text, speed = 1 }: TypewriterNarrationProps) => {
+const TypewriterNarration = ({ text, speed = 1, onComplete }: TypewriterNarrationProps) => {
   const typedRef = useRef<HTMLSpanElement>(null);
   const typedInstance = useRef<Typed | null>(null);
   const [isTyping, setIsTyping] = useState(false);
@@ -30,6 +31,9 @@ const TypewriterNarration = ({ text, speed = 1 }: TypewriterNarrationProps) => {
       cursorChar: '|',
       onComplete: () => {
         setIsTyping(false);
+        if (onComplete) {
+          onComplete();
+        }
       }
     });
 
@@ -38,7 +42,7 @@ const TypewriterNarration = ({ text, speed = 1 }: TypewriterNarrationProps) => {
         typedInstance.current.destroy();
       }
     };
-  }, [text, speed]);
+  }, [text, speed, onComplete]);
 
   return (
     <Card className="p-6 border-border bg-card min-h-[100px] flex items-center">

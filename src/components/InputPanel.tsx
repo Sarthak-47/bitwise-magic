@@ -6,16 +6,18 @@ import { Play, RotateCcw, Shuffle } from 'lucide-react';
 import { toast } from 'sonner';
 
 interface InputPanelProps {
-  onStart: (operand1: number, operand2: number) => void;
+  onStart: (operand1: number, operand2: number, bits: number) => void;
   onReset: () => void;
   inputLabels: {
     operand1: string;
     operand2: string;
   };
   isDivision?: boolean;
+  bitSize: number;
+  onBitSizeChange: (bits: number) => void;
 }
 
-const InputPanel = ({ onStart, onReset, inputLabels, isDivision = false }: InputPanelProps) => {
+const InputPanel = ({ onStart, onReset, inputLabels, isDivision = false, bitSize, onBitSizeChange }: InputPanelProps) => {
   const [operand1, setOperand1] = useState('');
   const [operand2, setOperand2] = useState('');
 
@@ -33,12 +35,13 @@ const InputPanel = ({ onStart, onReset, inputLabels, isDivision = false }: Input
       return;
     }
 
-    if (Math.abs(num1) > 127 || Math.abs(num2) > 127) {
-      toast.error('Numbers must be between -127 and 127 for 8-bit operations');
+    const maxVal = Math.pow(2, bitSize - 1) - 1;
+    if (Math.abs(num1) > maxVal || Math.abs(num2) > maxVal) {
+      toast.error(`Numbers must be between -${maxVal} and ${maxVal} for ${bitSize}-bit operations`);
       return;
     }
 
-    onStart(num1, num2);
+    onStart(num1, num2, bitSize);
   };
 
   const handleRandom = () => {
@@ -61,6 +64,25 @@ const InputPanel = ({ onStart, onReset, inputLabels, isDivision = false }: Input
       <h2 className="text-lg font-semibold mb-4 text-foreground">Input</h2>
       
       <div className="space-y-4">
+        <div>
+          <label className="text-sm font-medium text-muted-foreground mb-2 block">
+            Bit Size
+          </label>
+          <div className="flex gap-2">
+            {[4, 8, 16].map((bits) => (
+              <Button
+                key={bits}
+                onClick={() => onBitSizeChange(bits)}
+                variant={bitSize === bits ? "default" : "secondary"}
+                className={bitSize === bits ? "bg-primary hover:bg-primary/90" : "bg-secondary hover:bg-secondary/80"}
+                size="sm"
+              >
+                {bits}-bit
+              </Button>
+            ))}
+          </div>
+        </div>
+
         <div>
           <label className="text-sm font-medium text-muted-foreground mb-2 block">
             {inputLabels.operand1}
