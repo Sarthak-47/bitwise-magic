@@ -47,16 +47,21 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        sidebar: {
-          DEFAULT: "hsl(var(--sidebar-background))",
-          foreground: "hsl(var(--sidebar-foreground))",
-          primary: "hsl(var(--sidebar-primary))",
-          "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
-          accent: "hsl(var(--sidebar-accent))",
-          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
-          border: "hsl(var(--sidebar-border))",
-          ring: "hsl(var(--sidebar-ring))",
+        operation: {
+          add: "hsl(var(--op-add))",
+          subtract: "hsl(var(--op-subtract))",
+          shift: "hsl(var(--op-shift))",
+          booth: "hsl(var(--op-booth))",
         },
+        register: {
+          active: "hsl(var(--register-active))",
+          bg: "hsl(var(--register-bg))",
+        },
+      },
+      boxShadow: {
+        'glow-primary': '0 0 20px hsl(var(--glow-primary) / 0.5)',
+        'glow-add': '0 0 20px hsl(var(--glow-add) / 0.5)',
+        'glow-subtract': '0 0 20px hsl(var(--glow-subtract) / 0.5)',
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -80,10 +85,31 @@ export default {
             height: "0",
           },
         },
+        "pulse-glow": {
+          "0%, 100%": {
+            boxShadow: "0 0 10px hsl(var(--glow-primary) / 0.3)",
+          },
+          "50%": {
+            boxShadow: "0 0 20px hsl(var(--glow-primary) / 0.6)",
+          },
+        },
+        "bit-highlight": {
+          "0%": {
+            backgroundColor: "hsl(var(--register-bg))",
+          },
+          "50%": {
+            backgroundColor: "hsl(var(--register-active))",
+          },
+          "100%": {
+            backgroundColor: "hsl(var(--register-bg))",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "pulse-glow": "pulse-glow 2s ease-in-out infinite",
+        "bit-highlight": "bit-highlight 0.5s ease-in-out",
       },
     },
   },
