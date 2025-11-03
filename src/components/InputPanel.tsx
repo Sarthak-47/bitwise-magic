@@ -68,8 +68,8 @@ const InputPanel = ({ onStart, onReset, inputLabels, isDivision = false, bitSize
           <label className="text-sm font-medium text-muted-foreground mb-2 block">
             Bit Size
           </label>
-          <div className="flex gap-2">
-            {[4, 8, 16].map((bits) => (
+          <div className="flex gap-2 flex-wrap">
+            {[4, 8, 16, 32, 64].map((bits) => (
               <Button
                 key={bits}
                 onClick={() => onBitSizeChange(bits)}
