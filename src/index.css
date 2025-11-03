@@ -56,47 +56,47 @@ All colors MUST be HSL.
 
   .light {
     --background: 46 66% 92%;
-    --foreground: 30 36% 30%;
+    --foreground: 30 36% 15%;
 
     --card: 30 36% 64%;
-    --card-foreground: 30 36% 15%;
+    --card-foreground: 30 36% 10%;
 
     --popover: 30 36% 64%;
-    --popover-foreground: 30 36% 15%;
+    --popover-foreground: 30 36% 10%;
 
-    --primary: 27 42% 51%;
-    --primary-foreground: 46 66% 92%;
+    --primary: 27 42% 40%;
+    --primary-foreground: 46 66% 97%;
 
     --secondary: 108 19% 69%;
-    --secondary-foreground: 30 36% 20%;
+    --secondary-foreground: 30 36% 12%;
 
     --muted: 108 19% 69%;
-    --muted-foreground: 30 36% 35%;
+    --muted-foreground: 30 36% 25%;
 
-    --accent: 27 42% 51%;
-    --accent-foreground: 46 66% 92%;
+    --accent: 27 42% 40%;
+    --accent-foreground: 46 66% 97%;
 
-    --destructive: 0 70% 58%;
-    --destructive-foreground: 46 66% 92%;
+    --destructive: 0 70% 48%;
+    --destructive-foreground: 46 66% 97%;
 
     --border: 30 36% 54%;
-    --input: 108 19% 69%;
-    --ring: 27 42% 51%;
+    --input: 108 19% 75%;
+    --ring: 27 42% 40%;
 
     /* Operation colors */
-    --op-add: 108 35% 45%;
-    --op-subtract: 0 70% 48%;
-    --op-shift: 217 60% 50%;
-    --op-booth: 27 42% 51%;
+    --op-add: 108 35% 35%;
+    --op-subtract: 0 70% 40%;
+    --op-shift: 217 60% 40%;
+    --op-booth: 27 42% 40%;
 
     /* Register highlight */
-    --register-active: 27 42% 51%;
+    --register-active: 27 42% 40%;
     --register-bg: 46 66% 88%;
     
     /* Glow effects */
-    --glow-primary: 27 42% 51%;
-    --glow-add: 108 35% 45%;
-    --glow-subtract: 0 70% 48%;
+    --glow-primary: 27 42% 40%;
+    --glow-add: 108 35% 35%;
+    --glow-subtract: 0 70% 40%;
   }
 }
 
