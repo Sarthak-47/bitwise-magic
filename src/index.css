@@ -53,6 +53,51 @@ All colors MUST be HSL.
     --glow-add: 142 76% 56%;
     --glow-subtract: 0 70% 58%;
   }
+
+  .light {
+    --background: 57 76% 75%;
+    --foreground: 151 36% 30%;
+
+    --card: 68 48% 95%;
+    --card-foreground: 151 36% 30%;
+
+    --popover: 68 48% 95%;
+    --popover-foreground: 151 36% 30%;
+
+    --primary: 105 23% 45%;
+    --primary-foreground: 57 76% 75%;
+
+    --secondary: 68 48% 85%;
+    --secondary-foreground: 151 36% 30%;
+
+    --muted: 68 48% 85%;
+    --muted-foreground: 151 36% 40%;
+
+    --accent: 105 23% 45%;
+    --accent-foreground: 57 76% 75%;
+
+    --destructive: 0 70% 58%;
+    --destructive-foreground: 57 76% 75%;
+
+    --border: 68 48% 70%;
+    --input: 68 48% 85%;
+    --ring: 105 23% 45%;
+
+    /* Operation colors */
+    --op-add: 142 76% 36%;
+    --op-subtract: 0 70% 48%;
+    --op-shift: 217 91% 50%;
+    --op-booth: 45 93% 48%;
+
+    /* Register highlight */
+    --register-active: 105 23% 45%;
+    --register-bg: 68 48% 90%;
+    
+    /* Glow effects */
+    --glow-primary: 105 23% 45%;
+    --glow-add: 142 76% 36%;
+    --glow-subtract: 0 70% 48%;
+  }
 }
 
 @layer base {

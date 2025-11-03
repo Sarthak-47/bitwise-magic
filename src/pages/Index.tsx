@@ -7,6 +7,7 @@ import RegisterVisualizer from '@/components/RegisterVisualizer';
 import TypewriterNarration from '@/components/TypewriterNarration';
 import ControlPanel from '@/components/ControlPanel';
 import OutputPanel from '@/components/OutputPanel';
+import ThemeToggle from '@/components/ThemeToggle';
 import { Card } from '@/components/ui/card';
 import { restoringDivision } from '@/algorithms/restoringDivision';
 import { nonRestoringDivision } from '@/algorithms/nonRestoringDivision';
@@ -180,7 +181,10 @@ const Index = () => {
     <div className="min-h-screen bg-background p-4 md:p-8">
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header */}
-        <div className="text-center space-y-2">
+        <div className="text-center space-y-2 relative">
+          <div className="absolute right-0 top-0">
+            <ThemeToggle />
+          </div>
           <h1 className="text-4xl md:text-5xl font-bold text-primary">
             COA Algorithm Visualizer
           </h1>
