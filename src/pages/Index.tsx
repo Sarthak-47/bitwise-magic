@@ -255,6 +255,13 @@ const Index = () => {
             )}
           </div>
         </div>
+
+        {/* Footer */}
+        <div className="text-center pt-8 pb-4">
+          <p className="text-muted-foreground">
+            Created by <span className="text-primary font-semibold">Sarthak Singh</span>
+          </p>
+        </div>
       </div>
     </div>
   );
